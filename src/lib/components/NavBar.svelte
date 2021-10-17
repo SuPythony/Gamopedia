@@ -5,8 +5,9 @@
 	import { onMount } from "svelte";
 	import { initializing } from "$lib/stores";
 	import { waitUntil } from "async-wait-until";
-	import { getFirestore, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 	import { getAuth } from "firebase/auth";
+
+	let firestore;
 
 	interface buttonInterface {
 		text: string;
@@ -77,12 +78,13 @@
 		if (window.location.pathname.split("/")[1] === "game") {
 			await waitUntil(() => $initializing === false);
 			await waitUntil(() => $signedIn !== undefined);
+			firestore = await import("firebase/firestore");
 			if (signedIn) {
 				gameOpen = true;
 				auth = getAuth();
-				db = getFirestore();
-				const docRef = doc(db, "users", auth.currentUser.uid);
-				const docSnap = await getDoc(docRef);
+				db = firestore.getFirestore();
+				const docRef = firestore.doc(db, "users", auth.currentUser.uid);
+				const docSnap = await firestore.getDoc(docRef);
 				if (docSnap.exists()) {
 					wishlist = docSnap.data().wishlist;
 					if (docSnap.data().wishlist.includes(window.location.pathname.split("/")[2])) {
@@ -91,7 +93,7 @@
 						inWishlist = false;
 					}
 				} else {
-					setDoc(docRef, {
+					firestore.setDoc(docRef, {
 						wishlist: [],
 					});
 					inWishlist = false;
@@ -176,14 +178,14 @@
 					role="button"
 					use:keyClick={async () => {
 						wishlist.push(window.location.pathname.split("/")[2]);
-						await updateDoc(doc(db, "users", auth.currentUser.uid), {
+						await firestore.updateDoc(firestore.doc(db, "users", auth.currentUser.uid), {
 							wishlist,
 						});
 						inWishlist = true;
 					}}
 					on:click|stopPropagation={async () => {
 						wishlist.push(window.location.pathname.split("/")[2]);
-						await updateDoc(doc(db, "users", auth.currentUser.uid), {
+						await firestore.updateDoc(firestore.doc(db, "users", auth.currentUser.uid), {
 							wishlist,
 						});
 						inWishlist = true;
@@ -198,13 +200,13 @@
 					tabindex="0"
 					role="button"
 					use:keyClick={async () => {
-						await updateDoc(doc(db, "users", auth.currentUser.uid), {
+						await firestore.updateDoc(firestore.doc(db, "users", auth.currentUser.uid), {
 							wishlist: wishlist.filter((val) => val !== window.location.pathname.split("/")[2]),
 						});
 						inWishlist = false;
 					}}
 					on:click|stopPropagation={async () => {
-						await updateDoc(doc(db, "users", auth.currentUser.uid), {
+						await firestore.updateDoc(firestore.doc(db, "users", auth.currentUser.uid), {
 							wishlist: wishlist.filter((val) => val !== window.location.pathname.split("/")[2]),
 						});
 						inWishlist = false;
@@ -304,14 +306,14 @@
 						class="menu-button-container"
 						use:keyClick={async () => {
 							wishlist.push(window.location.pathname.split("/")[2]);
-							await updateDoc(doc(db, "users", auth.currentUser.uid), {
+							await firestore.updateDoc(firestore.doc(db, "users", auth.currentUser.uid), {
 								wishlist,
 							});
 							inWishlist = true;
 						}}
 						on:click|stopPropagation={async () => {
 							wishlist.push(window.location.pathname.split("/")[2]);
-							await updateDoc(doc(db, "users", auth.currentUser.uid), {
+							await firestore.updateDoc(firestore.doc(db, "users", auth.currentUser.uid), {
 								wishlist,
 							});
 							inWishlist = true;
@@ -326,13 +328,13 @@
 						role="button"
 						class="menu-button-container"
 						use:keyClick={async () => {
-							await updateDoc(doc(db, "users", auth.currentUser.uid), {
+							await firestore.updateDoc(firestore.doc(db, "users", auth.currentUser.uid), {
 								wishlist: wishlist.filter((val) => val !== window.location.pathname.split("/")[2]),
 							});
 							inWishlist = false;
 						}}
 						on:click|stopPropagation={async () => {
-							await updateDoc(doc(db, "users", auth.currentUser.uid), {
+							await firestore.updateDoc(firestore.doc(db, "users", auth.currentUser.uid), {
 								wishlist: wishlist.filter((val) => val !== window.location.pathname.split("/")[2]),
 							});
 							inWishlist = false;

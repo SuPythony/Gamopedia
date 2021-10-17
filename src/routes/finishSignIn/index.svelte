@@ -7,25 +7,26 @@
 	import { waitUntil } from "async-wait-until";
 	import { Circle, Circle2 } from "svelte-loading-spinners";
 	import { goto } from "$app/navigation";
-	import { getFirestore, setDoc, doc, getDoc } from "firebase/firestore";
 
 	let signInFinished = false;
 	let name = "";
 	let nameField;
 	let nameIsValid;
 	let loading = false;
+	let firestore;
 
 	let db;
 	let auth;
 
 	onMount(async () => {
 		await waitUntil(() => $initializing === false);
+		firestore = await import("firebase/firestore");
 		auth = getAuth();
 		if (isSignInWithEmailLink(auth, window.location.href)) {
 			if (auth.currentUser) {
 				goto("/");
 			}
-			db = getFirestore();
+			db = firestore.getFirestore();
 			let email = localStorage.getItem("signInEmail");
 			if (!email) {
 				email = window.prompt("Please provide your email for confirmation");
@@ -39,8 +40,8 @@
 							"--toastBarBackground": "#2F855A",
 						},
 					});
-					const docRef = doc(db, "users", auth.currentUser.uid);
-					const docSnap = await getDoc(docRef);
+					const docRef = firestore.doc(db, "users", auth.currentUser.uid);
+					const docSnap = await firestore.getDoc(docRef);
 					if (docSnap.exists()) {
 						localStorage.setItem("name", docSnap.data().name);
 						goto("/");
@@ -75,10 +76,11 @@
 
 	async function storeData() {
 		localStorage.setItem("name", name);
-		setDoc(doc(db, "users", auth.currentUser.uid), {
-			name,
-			wishlist: [],
-		})
+		firestore
+			.setDoc(firestore.doc(db, "users", auth.currentUser.uid), {
+				name,
+				wishlist: [],
+			})
 			.then(() => {
 				loading = false;
 				toast.push("Successfully saved!", {

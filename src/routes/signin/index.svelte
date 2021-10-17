@@ -1,7 +1,6 @@
 <script lang="ts">
 	import TextField from "$lib/components/TextField.svelte";
-	import type { ActionCodeSettings } from "firebase/auth";
-	import { sendSignInLinkToEmail, getAuth } from "firebase/auth";
+	import type { ActionCodeSettings, sendSignInLinkToEmail, getAuth } from "firebase/auth";
 	import { toast } from "@zerodevx/svelte-toast";
 	import { Circle } from "svelte-loading-spinners";
 	import { onMount } from "svelte";

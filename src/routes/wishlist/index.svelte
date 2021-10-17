@@ -5,19 +5,16 @@
 	import { goto } from "$app/navigation";
 	import GameTile from "$lib/components/GameTile.svelte";
 	import { Circle } from "svelte-loading-spinners";
-	import { keyClick } from "$lib/actions";
-	import { getFirestore, doc, getDoc } from "firebase/firestore";
 	import { getAuth } from "firebase/auth";
 
-	let offset = 0;
-	let limit = 10;
 	let gamesList = [];
 	let coversList = [];
 	let loading = true;
+	let firestore;
 
 	async function getData() {
 		loading = true;
-		const docSnap = await getDoc(doc(db, "users", auth.currentUser.uid));
+		const docSnap = await firestore.getDoc(firestore.doc(db, "users", auth.currentUser.uid));
 		const wishlist = docSnap.data().wishlist;
 		for (const wish of wishlist) {
 			const res: Response = await fetch(`/api/wishlist-${wish}`);
@@ -33,11 +30,12 @@
 
 	onMount(async () => {
 		await waitUntil(() => $signedIn !== undefined);
+		firestore = await import("firebase/firestore");
 		if (!$signedIn) {
 			goto("/signin");
 		} else {
 			auth = getAuth();
-			db = getFirestore();
+			db = firestore.getFirestore();
 			getData();
 		}
 	});

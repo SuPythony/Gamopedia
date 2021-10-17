@@ -1,5 +1,4 @@
 <script>
-	import { getFirestore, doc, setDoc } from "firebase/firestore";
 	import { signedIn } from "$lib/stores";
 	import { waitUntil } from "async-wait-until";
 	import { onMount } from "svelte";
@@ -16,10 +15,12 @@
 	let isValid = false;
 	let loading = false;
 	let validated = false;
+	let firestore;
 
 	onMount(async () => {
 		await waitUntil(() => $signedIn !== undefined);
-		db = getFirestore();
+		firestore = await import("firebase/firestore");
+		db = firestore.getFirestore();
 		auth = getAuth();
 		if (!$signedIn) {
 			goto("/signin");
@@ -31,10 +32,11 @@
 			loading = true;
 			feedbackField.submit();
 			if (isValid) {
-				setDoc(doc(db, "feedback", auth.currentUser.uid), {
-					name: localStorage.getItem("name"),
-					feedback,
-				})
+				firestore
+					.setDoc(firestore.doc(db, "feedback", auth.currentUser.uid), {
+						name: localStorage.getItem("name"),
+						feedback,
+					})
 					.then(() => {
 						feedback = "";
 						validated = false;

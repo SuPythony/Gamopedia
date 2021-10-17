@@ -19,7 +19,7 @@
 
 	export let message = "";
 	export let isValid = false;
-	let validated = false;
+	export let validated = false;
 
 	$: if (validated) {
 		if (value === "") {
@@ -65,18 +65,32 @@
 
 <div id="form-container" style="--text-color: {textColor};">
 	<label for="field" style="font-size: {labelFontSize};">{label}</label><br />
-	<input
-		use:typeAction
-		{required}
-		{placeholder}
-		id="field"
-		style="width: {width}; height: {height}; font-size: {inputFontSize}; --border-color: {validated
-			? isValid
-				? 'rgb(73, 243, 73)'
-				: '#fc8181'
-			: borderColor}; background-color: {backgroundColor}"
-		bind:value
-	/>
+	{#if type === "textarea"}
+		<textarea
+			{required}
+			{placeholder}
+			id="field"
+			style="width: {width}; height: {height}; font-size: {inputFontSize}; --border-color: {validated
+				? isValid
+					? 'rgb(73, 243, 73)'
+					: '#fc8181'
+				: borderColor}; background-color: {backgroundColor}"
+			bind:value
+		/>
+	{:else}
+		<input
+			use:typeAction
+			{required}
+			{placeholder}
+			id="field"
+			style="width: {width}; height: {height}; font-size: {inputFontSize}; --border-color: {validated
+				? isValid
+					? 'rgb(73, 243, 73)'
+					: '#fc8181'
+				: borderColor}; background-color: {backgroundColor}"
+			bind:value
+		/>
+	{/if}
 	<p id="hint">{hint}</p>
 	<p style="color: {isValid ? 'rgb(73, 243, 73)' : '#fc8181'};">{message}</p>
 </div>
@@ -93,7 +107,8 @@
 		width: 100%;
 	}
 
-	input {
+	input,
+	textarea {
 		outline: none;
 		padding: 10px;
 		border-radius: 10px;

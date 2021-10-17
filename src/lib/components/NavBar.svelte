@@ -30,7 +30,13 @@
 						url: "/games",
 					},
 			  ]
-			: []),
+			: [
+					{
+						text: "Features",
+						submenus: false,
+						url: "#features",
+					},
+			  ]),
 		...($signedIn
 			? [
 					{
@@ -42,8 +48,8 @@
 								url: "/wishlist",
 							},
 							{
-								text: "Settings",
-								url: "/settings",
+								text: "Feedback",
+								url: "/feedback",
 							},
 						],
 					},

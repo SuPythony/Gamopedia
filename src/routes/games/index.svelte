@@ -263,6 +263,7 @@
 		color: white;
 		flex-direction: column;
 		align-items: center;
+		height: 100%;
 		@media (min-width: $base) {
 			width: 100%;
 		}

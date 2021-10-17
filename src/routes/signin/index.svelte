@@ -15,7 +15,7 @@
 	let isValid: boolean;
 
 	const actionCodeSettins: ActionCodeSettings = {
-		url: "https://gamopedia.netlify.app/finishSignIn",
+		url: "http://localhost:3000/finishSignIn",
 		handleCodeInApp: true,
 	};
 

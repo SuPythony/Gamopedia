@@ -6,6 +6,7 @@
 	import GameTile from "$lib/components/GameTile.svelte";
 	import { Circle } from "svelte-loading-spinners";
 	import { getAuth } from "firebase/auth";
+	import { showingGame } from "$lib/stores";
 
 	let gamesList = [];
 	let coversList = [];
@@ -29,6 +30,7 @@
 	let auth;
 
 	onMount(async () => {
+		showingGame.set(false);
 		await waitUntil(() => $signedIn !== undefined);
 		firestore = await import("firebase/firestore");
 		if (!$signedIn) {

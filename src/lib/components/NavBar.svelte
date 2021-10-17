@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { slide } from "svelte/transition";
 	import { keyClick } from "$lib/actions";
-	import { signedIn } from "$lib/stores";
+	import { signedIn, showingGame } from "$lib/stores";
 	import { onMount } from "svelte";
 	import { initializing } from "$lib/stores";
 	import { waitUntil } from "async-wait-until";
@@ -79,8 +79,11 @@
 	}
 
 	onMount(async () => {
-		console.log("here");
-		inWishlist = undefined;
+		const unsubscribe = showingGame.subscribe((val) => {
+			if (val === false) {
+				inWishlist = undefined;
+			}
+		});
 		if (window.location.pathname.split("/")[1] === "game") {
 			await waitUntil(() => $initializing === false);
 			await waitUntil(() => $signedIn !== undefined);
@@ -107,6 +110,7 @@
 			}
 		}
 		canCheck = true;
+		return () => unsubscribe();
 	});
 
 	function removeAllClicks() {

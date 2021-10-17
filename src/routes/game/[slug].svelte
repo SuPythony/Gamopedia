@@ -13,6 +13,7 @@
 
 <script lang="ts">
 	import { onMount } from "svelte";
+	import { showingGame } from "$lib/stores";
 
 	import { Circle, Jumper, Moon } from "svelte-loading-spinners";
 
@@ -160,6 +161,7 @@
 	}
 
 	onMount(async () => {
+		showingGame.set(true);
 		const module = await import("svelte-carousel");
 		Carousel = module.default;
 		getData();

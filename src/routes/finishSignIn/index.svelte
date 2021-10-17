@@ -7,6 +7,7 @@
 	import { waitUntil } from "async-wait-until";
 	import { Circle, Circle2 } from "svelte-loading-spinners";
 	import { goto } from "$app/navigation";
+	import { showingGame } from "$lib/stores";
 
 	let signInFinished = false;
 	let name = "";
@@ -19,6 +20,7 @@
 	let auth;
 
 	onMount(async () => {
+		showingGame.set(false);
 		await waitUntil(() => $initializing === false);
 		firestore = await import("firebase/firestore");
 		auth = getAuth();

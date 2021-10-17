@@ -18,6 +18,7 @@
 	import { goto } from "$app/navigation";
 	import Accordion from "$lib/components/Accordion.svelte";
 	import AccordionItem from "$lib/components/AccordionItem.svelte";
+	import { showingGame } from "$lib/stores";
 
 	interface gameInterface {
 		id: number;
@@ -31,6 +32,7 @@
 	let Carousel;
 
 	onMount(async () => {
+		showingGame.set(false);
 		await waitUntil(() => $signedIn !== undefined);
 		if ($signedIn) {
 			goto("/games");

@@ -7,6 +7,7 @@
 	import { Circle } from "svelte-loading-spinners";
 	import { keyClick } from "$lib/actions";
 	import { slide } from "svelte/transition";
+	import { showingGame } from "$lib/stores";
 
 	let offset = 0;
 	let limit = 10;
@@ -32,6 +33,7 @@
 	}
 
 	onMount(async () => {
+		showingGame.set(false);
 		await waitUntil(() => $signedIn !== undefined);
 		if (!$signedIn) {
 			goto("/signin");

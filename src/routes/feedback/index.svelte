@@ -7,6 +7,7 @@
 	import { toast } from "@zerodevx/svelte-toast";
 	import { getAuth } from "firebase/auth";
 	import { goto } from "$app/navigation";
+	import { showingGame } from "$lib/stores";
 
 	let db;
 	let auth;
@@ -18,6 +19,7 @@
 	let firestore;
 
 	onMount(async () => {
+		showingGame.set(false);
 		await waitUntil(() => $signedIn !== undefined);
 		firestore = await import("firebase/firestore");
 		db = firestore.getFirestore();

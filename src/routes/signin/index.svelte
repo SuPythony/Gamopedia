@@ -8,6 +8,7 @@
 	import { signedIn } from "$lib/stores";
 	import { goto } from "$app/navigation";
 	import { waitUntil } from "async-wait-until";
+	import { showingGame } from "$lib/stores";
 
 	let email: string;
 	let loading = false;
@@ -20,6 +21,7 @@
 	};
 
 	onMount(async () => {
+		showingGame.set(false);
 		await waitUntil(() => $signedIn !== undefined);
 		if ($signedIn) {
 			goto("/");

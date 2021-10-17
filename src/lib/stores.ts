@@ -7,3 +7,4 @@ export const initializing = writable(true);
 export const currGame = writable({});
 export const currCover = writable({});
 export const openedIndex = writable(0);
+export const showingGame = writable(false);

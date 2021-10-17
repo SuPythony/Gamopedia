@@ -5,8 +5,10 @@
 	import { toast } from "@zerodevx/svelte-toast";
 	import { waitUntil } from "async-wait-until";
 	import { initializing, signedIn } from "$lib/stores";
+	import { showingGame } from "$lib/stores";
 
 	onMount(async () => {
+		showingGame.set(false);
 		if (!$signedIn) {
 			goto("/signin");
 			return;

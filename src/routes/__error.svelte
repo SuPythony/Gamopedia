@@ -1,3 +1,12 @@
+<script lang="ts">
+	import { showingGame } from "$lib/stores";
+	import { onMount } from "svelte";
+
+	onMount(() => {
+		showingGame.set(false);
+	});
+</script>
+
 <div id="container">
 	<h1>404 - Not Found</h1>
 	<h2>Go back to the <a href="/">home</a> page</h2>

@@ -17,7 +17,7 @@
 	async function getData() {
 		loading = true;
 		const res: Response = await fetch(
-			`/api/games-${offset}-${limit}-${searchTerm ? searchTerm : undefined}`,
+			`/api/games-${offset}-${limit}-${searchTerm ? searchTerm : "noSearchTermHere"}`,
 		);
 		const data = await res.json();
 		gamesList = data.games;
@@ -34,7 +34,9 @@
 		}
 	});
 
-	function search() {}
+	function search() {
+		getData();
+	}
 </script>
 
 <svelte:head>
@@ -73,10 +75,15 @@
 						}
 					}}
 				/>
-				<p>Showing {offset + 1}-{offset + limit} games</p>
+				<p>
+					Showing {offset + 1}-{gamesList.length < limit
+						? offset + gamesList.length
+						: offset + limit} games
+				</p>
 				<i
 					class="fas fa-chevron-right fa-sm"
 					class:clickable={!(gamesList.length < limit)}
+					style="color: {gamesList.length < limit ? 'grey' : 'white'};"
 					role="button"
 					tabindex="0"
 					use:keyClick={() => {

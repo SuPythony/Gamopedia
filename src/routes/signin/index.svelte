@@ -15,11 +15,6 @@
 	let emailField: TextField;
 	let isValid: boolean;
 
-	const actionCodeSettins: ActionCodeSettings = {
-		url: "https://gamopedia.netlify.app/finishSignIn",
-		handleCodeInApp: true,
-	};
-
 	onMount(async () => {
 		showingGame.set(false);
 		await waitUntil(() => $signedIn !== undefined);
@@ -29,6 +24,10 @@
 	});
 
 	function sendLink() {
+		const actionCodeSettins: ActionCodeSettings = {
+			url: `https://${window.location.href.split("//")[1].split("/")[0]}/finishSignIn`,
+			handleCodeInApp: true,
+		};
 		const auth = getAuth();
 		sendSignInLinkToEmail(auth, email, actionCodeSettins)
 			.then(() => {

@@ -43,6 +43,14 @@
 	<title>Games</title>
 </svelte:head>
 
+<div id="mobile-filter">
+	<div id="search">
+		<form novalidate on:submit|preventDefault={search}>
+			<input id="search-input" type="text" placeholder="Search" bind:value={searchTerm} />
+			<button id="search-button">Search</button>
+		</form>
+	</div>
+</div>
 <div id="main">
 	<div id="container">
 		<h1>Games</h1>
@@ -105,11 +113,10 @@
 		{/if}
 	</div>
 	<div id="filters">
-		<h1>Filters</h1>
 		<div id="search">
 			<form novalidate on:submit|preventDefault={search}>
-				<input type="text" placeholder="Search" bind:value={searchTerm} />
-				<button>Search</button>
+				<input id="search-input" type="text" placeholder="Search" bind:value={searchTerm} />
+				<button id="search-button">Search</button>
 			</form>
 		</div>
 	</div>
@@ -118,13 +125,56 @@
 <style lang="scss">
 	@import "../../lib/vars.scss";
 
+	#search-button {
+		padding: 10px;
+		border-radius: 10px;
+		background-color: teal;
+		color: white;
+		outline: none;
+		border: none;
+		font-size: 0.8em;
+		&:hover {
+			background-color: white;
+			color: teal;
+		}
+	}
+
+	#search-input {
+		padding: 10px;
+		border-radius: 10px;
+		outline: none;
+		border: 2px teal solid;
+		font-size: 0.8em;
+		margin-top: 2em;
+	}
+
 	#filters {
 		flex-grow: 1;
 		height: fit-content;
 		padding: 10px;
-		display: flex;
 		align-items: center;
 		flex-direction: column;
+		@media (min-width: $base) {
+			display: none;
+		}
+		@media (min-width: $md) {
+			display: flex;
+		}
+		h1 {
+			color: white;
+		}
+	}
+
+	#mobile-filter {
+		padding: 10px;
+		align-items: center;
+		flex-direction: column;
+		@media (min-width: $base) {
+			display: flex;
+		}
+		@media (min-width: $md) {
+			display: none;
+		}
 		h1 {
 			color: white;
 		}

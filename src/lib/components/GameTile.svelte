@@ -98,6 +98,14 @@
 		}
 	}
 
+	i {
+		align-self: center;
+		margin-right: 10px;
+		&:hover {
+			cursor: pointer;
+		}
+	}
+
 	#data {
 		display: flex;
 		flex-direction: column;
@@ -111,6 +119,7 @@
 
 	#title {
 		display: flex;
+		justify-content: space-between;
 	}
 
 	@media (min-width: $base) {

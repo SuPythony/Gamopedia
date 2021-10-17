@@ -26,10 +26,15 @@
 		await waitUntil(() => $signedIn !== undefined);
 		if (!$signedIn) {
 			goto("/signin");
+		} else {
+			getData();
 		}
-		getData();
 	});
 </script>
+
+<svelte:head>
+	<title>Games</title>
+</svelte:head>
 
 <div id="container">
 	<h1>Games</h1>

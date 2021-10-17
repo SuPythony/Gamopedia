@@ -7,94 +7,76 @@
 	import { waitUntil } from "async-wait-until";
 	import { Circle, Circle2 } from "svelte-loading-spinners";
 	import { goto } from "$app/navigation";
-	import {
-		getFirestore,
-		setDoc,
-		doc,
-		collection,
-		query,
-		where,
-		getDocs,
-		getDoc,
-	} from "firebase/firestore";
+	import { getFirestore, setDoc, doc, getDoc } from "firebase/firestore";
 
 	let signInFinished = false;
 	let name = "";
 	let nameField;
 	let nameIsValid;
-	let username = "";
-	let usernameField;
-	let usernameIsValid;
 	let loading = false;
-	let message;
 
 	let db;
 	let auth;
 
 	onMount(async () => {
-		try {
-			await waitUntil(() => $initializing === false);
-			auth = getAuth();
-			if (isSignInWithEmailLink(auth, window.location.href)) {
-				if (auth.currentUser) {
-					goto("/");
-				}
-				db = getFirestore();
-				let email = localStorage.getItem("signInEmail");
-				if (!email) {
-					email = window.prompt("Please provide your email for confirmation");
-				}
-				signInWithEmailLink(auth, email)
-					.then(async (result) => {
-						localStorage.removeItem("signInEmail");
-						toast.push("Successfully signed in!", {
-							theme: {
-								"--toastBackground": "#48BB78",
-								"--toastBarBackground": "#2F855A",
-							},
-						});
-						const docRef = doc(db, "users", auth.currentUser.uid);
-						const docSnap = await getDoc(docRef);
-						if (docSnap.exists()) {
-							goto("/");
-						} else {
-							signInFinished = true;
-						}
-					})
-					.catch((error) => {
-						console.error(error);
-						goto("/signin");
-						toast.push(
-							`Something went wrong! ${
-								localStorage.getItem("signInEmail") ? "" : "Did you enter the correct email?"
-							}`,
-							{
-								theme: {
-									"--toastBackground": "#F56565",
-									"--toastBarBackground": "#C53030",
-								},
-							},
-						);
-					});
-			} else {
-				try {
-					await waitUntil(() => auth.currentUser, { timeout: 1000 });
-					goto("/");
-				} catch {
-					goto("/signin");
-				}
+		await waitUntil(() => $initializing === false);
+		auth = getAuth();
+		if (isSignInWithEmailLink(auth, window.location.href)) {
+			if (auth.currentUser) {
+				goto("/");
 			}
-		} catch (e) {
-			if (e.message === "exports is not defined") {
-				location.reload();
+			db = getFirestore();
+			let email = localStorage.getItem("signInEmail");
+			if (!email) {
+				email = window.prompt("Please provide your email for confirmation");
+			}
+			signInWithEmailLink(auth, email)
+				.then(async (result) => {
+					localStorage.removeItem("signInEmail");
+					toast.push("Successfully signed in!", {
+						theme: {
+							"--toastBackground": "#48BB78",
+							"--toastBarBackground": "#2F855A",
+						},
+					});
+					const docRef = doc(db, "users", auth.currentUser.uid);
+					const docSnap = await getDoc(docRef);
+					if (docSnap.exists()) {
+						localStorage.setItem("name", docSnap.data().name);
+						goto("/");
+					} else {
+						signInFinished = true;
+					}
+				})
+				.catch((error) => {
+					console.error(error);
+					goto("/signin");
+					toast.push(
+						`Something went wrong! ${
+							localStorage.getItem("signInEmail") ? "" : "Did you enter the correct email?"
+						}`,
+						{
+							theme: {
+								"--toastBackground": "#F56565",
+								"--toastBarBackground": "#C53030",
+							},
+						},
+					);
+				});
+		} else {
+			try {
+				await waitUntil(() => auth.currentUser, { timeout: 1000 });
+				goto("/");
+			} catch {
+				goto("/signin");
 			}
 		}
 	});
 
 	async function storeData() {
+		localStorage.setItem("name", name);
 		setDoc(doc(db, "users", auth.currentUser.uid), {
 			name,
-			username,
 			wishlist: [],
 		})
 			.then(() => {
@@ -122,14 +104,7 @@
 		if (!loading) {
 			loading = true;
 			nameField.submit();
-			usernameField.submit();
-			const q = query(collection(db, "users"), where("username", "==", username));
-			const querySnapshot = await getDocs(q);
-			if (!querySnapshot.empty) {
-				usernameIsValid = false;
-				message = "Username already exists";
-			}
-			if (nameIsValid && usernameIsValid) {
+			if (nameIsValid) {
 				storeData();
 			} else {
 				loading = false;
@@ -137,6 +112,10 @@
 		}
 	}
 </script>
+
+<svelte:head>
+	<title>Finish Sign In</title>
+</svelte:head>
 
 <div>
 	{#if !signInFinished}
@@ -151,17 +130,6 @@
 			bind:this={nameField}
 			required
 			bind:isValid={nameIsValid}
-		/>
-		<TextField
-			label="Username"
-			type="text"
-			placeholder="Enter your username"
-			bind:value={username}
-			borderColor="teal"
-			bind:this={usernameField}
-			required
-			bind:isValid={usernameIsValid}
-			bind:message
 		/>
 		<button on:click={handleSubmit}>
 			{#if loading}

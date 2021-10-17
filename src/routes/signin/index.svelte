@@ -64,6 +64,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Sign In</title>
+</svelte:head>
+
 <form novalidate on:submit|preventDefault>
 	<div>
 		<TextField

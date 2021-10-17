@@ -38,4 +38,8 @@
 		margin: 0px;
 		background-color: #033d3d;
 	}
+
+	:global(a) {
+		color: lightblue;
+	}
 </style>

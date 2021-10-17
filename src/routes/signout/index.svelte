@@ -34,3 +34,7 @@
 			});
 	});
 </script>
+
+<svelte:head>
+	<title>Sign Out</title>
+</svelte:head>

@@ -174,6 +174,14 @@
 	});
 </script>
 
+<svelte:head>
+	{#if loading}
+		<title>Loading...</title>
+	{:else}
+		<title>{game.name}</title>
+	{/if}
+</svelte:head>
+
 {#if loading}
 	<div id="loading-container">
 		{#if timeElapsed < 5}
@@ -262,7 +270,7 @@
 				</div>
 				{#if game.websites && game.websites.length > 0}
 					<div id="websites">
-						<h2>{game.websites.length === 1 ? "Website" : "Websites"}:</h2>
+						<h2>{game.websites.length === 1 ? "Link" : "Links"}:</h2>
 						<h3>
 							{@html game.websites
 								.map(

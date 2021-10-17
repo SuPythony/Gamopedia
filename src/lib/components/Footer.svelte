@@ -13,7 +13,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		position: absolute;
+		position: relative;
 		bottom: 0px;
 		left: 0px;
 		h2 {

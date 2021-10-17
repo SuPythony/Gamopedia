@@ -73,11 +73,6 @@
 	let auth;
 	let inWishlist = undefined;
 	let wishlist: string[] = [];
-	let canCheck = false;
-
-	$: if (canCheck && window.location.pathname.split("/")[1] !== "game") {
-		inWishlist = undefined;
-	}
 
 	onMount(async () => {
 		if (window.location.pathname.split("/")[1] === "game") {
@@ -107,7 +102,6 @@
 		} else {
 			inWishlist = undefined;
 		}
-		canCheck = true;
 	});
 
 	function removeAllClicks() {
@@ -202,7 +196,7 @@
 					<i class="far fa-bookmark fa-md" />
 					<h2>Add to Wishlist</h2>
 				</div>
-			{:else if inWishlist}
+			{:else if inWishlist === true}
 				<div
 					id="wish"
 					tabindex="0"

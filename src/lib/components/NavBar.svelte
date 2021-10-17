@@ -171,7 +171,7 @@
 					</div>
 				{/each}
 			</div>
-			{#if inWishlist === false}
+			{#if inWishlist === false && window.location.pathname.split("/")[1] === "game"}
 				<div
 					id="wish"
 					tabindex="0"
@@ -194,7 +194,7 @@
 					<i class="far fa-bookmark fa-md" />
 					<h2>Add to Wishlist</h2>
 				</div>
-			{:else if inWishlist}
+			{:else if inWishlist && window.location.pathname.split("/")[1] === "game"}
 				<div
 					id="wish"
 					tabindex="0"

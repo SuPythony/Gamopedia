@@ -196,20 +196,22 @@
 	<div id="main">
 		<div id="container">
 			<div id="vid-img">
-				<svelte:component this={Carousel}>
-					{#if game.videos && game.videos.length > 0}
-						{#each game.videos as video}
-							<iframe src="https://youtube.com/embed/{video.video_id}" title={video.name} />
+				{#if game.videos.length + game.screenshots.length > 0}
+					<svelte:component this={Carousel}>
+						{#if game.videos && game.videos.length > 0}
+							{#each game.videos as video}
+								<iframe src="https://youtube.com/embed/{video.video_id}" title={video.name} />
+							{/each}
+						{/if}
+						{#each game.screenshots as screenshot}
+							<img
+								draggable="false"
+								src="https:{screenshot.url.replace('t_thumb', 't_screenshot_med')}"
+								alt={game.name}
+							/>
 						{/each}
-					{/if}
-					{#each game.screenshots as screenshot}
-						<img
-							draggable="false"
-							src="https:{screenshot.url.replace('t_thumb', 't_screenshot_med')}"
-							alt={game.name}
-						/>
-					{/each}
-				</svelte:component>
+					</svelte:component>
+				{/if}
 				{#if game.genres && game.genres.length > 0}
 					<div id="genres">
 						{#each game.genres as genre}
@@ -275,7 +277,7 @@
 							{@html game.websites
 								.map(
 									(val) =>
-										`<a style="color: lightblue;" href="${val.url}">${
+										`<a style="color: lightblue;" target="_blank" href="${val.url}">${
 											val.url.split("//")[1].split("/")[0]
 										}</a>`,
 								)

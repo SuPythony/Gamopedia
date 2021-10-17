@@ -72,6 +72,12 @@
 		color: white;
 		flex-direction: column;
 		align-items: center;
+		@media (min-width: $base) {
+			width: 100%;
+		}
+		@media (min-width: $md) {
+			width: 75%;
+		}
 		h1 {
 			font-size: 45px;
 		}

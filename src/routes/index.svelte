@@ -11,3 +11,7 @@
 		}
 	});
 </script>
+
+<svelte:head>
+	<title>Game Store</title>
+</svelte:head>

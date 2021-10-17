@@ -136,6 +136,7 @@
 		&:hover {
 			background-color: white;
 			color: teal;
+			cursor: pointer;
 		}
 	}
 

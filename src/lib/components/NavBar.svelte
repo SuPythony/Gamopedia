@@ -22,11 +22,15 @@
 	let buttons: buttonInterface[];
 
 	$: buttons = [
-		{
-			text: "Games",
-			submenus: false,
-			url: "/games",
-		},
+		...($signedIn
+			? [
+					{
+						text: "Games",
+						submenus: false,
+						url: "/games",
+					},
+			  ]
+			: []),
 		...($signedIn
 			? [
 					{

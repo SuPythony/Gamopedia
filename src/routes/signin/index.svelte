@@ -78,6 +78,7 @@
 			bind:this={emailField}
 			required
 			bind:isValid
+			hint="You'll receive a link on your email, which you can use to sign in"
 		/>
 		<button on:click={handleSubmit}>
 			{#if loading}

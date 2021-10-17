@@ -9,7 +9,11 @@ export async function get({ params }) {
 	const ans = await fetch(url, {
 		method: "POST",
 		headers: apiHeaders,
-		body: `fields summary,slug,cover,name,first_release_date,total_rating,total_rating_count; offset ${params.offset}; limit ${params.limit}; where cover!=null;`,
+		body: `fields summary,slug,cover,name,first_release_date,total_rating,total_rating_count; offset ${
+			params.offset
+		}; limit ${params.limit}; where cover!=null; ${
+			params.search ? `search "${params.search}";` : ""
+		}`,
 	})
 		.then((res) => res.json())
 		.then((data) => data);

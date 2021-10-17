@@ -13,6 +13,7 @@
 	export let inputFontSize = "1em";
 	export let placeholder = "";
 	export let value = "";
+	export let hint = "";
 
 	const dispatch = createEventDispatcher();
 
@@ -76,10 +77,15 @@
 			: borderColor}; background-color: {backgroundColor}"
 		bind:value
 	/>
+	<p id="hint">{hint}</p>
 	<p style="color: {isValid ? 'rgb(73, 243, 73)' : '#fc8181'};">{message}</p>
 </div>
 
 <style lang="scss">
+	#hint {
+		color: white;
+	}
+
 	#form-container {
 		display: flex;
 		flex-direction: column;

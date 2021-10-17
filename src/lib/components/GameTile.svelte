@@ -81,12 +81,7 @@
 		border-bottom: 2px #033d3d solid;
 		padding: 10px;
 		padding-bottom: 5px;
-		@media (min-width: $base) {
-			width: 100%;
-		}
-		@media (min-width: $md) {
-			width: 75%;
-		}
+		width: 100%;
 		transition: transform, margin-left 200ms ease;
 		@media (min-width: $md) {
 			&:hover,

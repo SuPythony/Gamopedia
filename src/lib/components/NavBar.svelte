@@ -111,7 +111,7 @@
 
 <div id="container">
 	<div id="h-and-nav">
-		<a id="heading" href={$signedIn ? "/games" : "/"}>Game Store</a>
+		<a id="heading" href={$signedIn ? "/games" : "/"}>Gamopedia</a>
 		<div id="b-and-w">
 			<div id="buttons">
 				{#each buttons as button}

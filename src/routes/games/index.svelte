@@ -136,23 +136,23 @@
 	</div>
 	<div id="filters">
 		<h1>Advanced Search</h1>
-		<div id="search">
-			<form novalidate on:submit|preventDefault={search}>
+		<form novalidate on:submit|preventDefault={search}>
+			<div id="search">
 				<input id="search-input" type="text" placeholder="Search" bind:value={searchTerm} />
 				<button id="search-button">Search</button>
-			</form>
-		</div>
-		<div id="date">
-			<p>Released:</p>
-			<label>
-				After:
-				<input id="search-input" type="number" min="1958" max="2023" bind:value={after} />
-			</label>
-			<label>
-				Before:
-				<input id="search-input" type="number" min="1958" max="2023" bind:value={before} />
-			</label>
-		</div>
+			</div>
+			<div id="date">
+				<p>Released:</p>
+				<label>
+					After:
+					<input id="search-input" type="number" min="1958" max="2023" bind:value={after} />
+				</label>
+				<label>
+					Before:
+					<input id="search-input" type="number" min="1958" max="2023" bind:value={before} />
+				</label>
+			</div>
+		</form>
 	</div>
 </div>
 

@@ -208,6 +208,9 @@
 					<h2>In your Wishlist</h2>
 				</div>
 			{/if}
+			{#if !$signedIn}
+				<img alt="Gamopedia Logo" src="/favicon.png" />
+			{/if}
 		</div>
 	</div>
 
@@ -339,6 +342,11 @@
 
 <style lang="scss">
 	@import "../vars.scss";
+
+	img {
+		height: 5em;
+		align-self: center;
+	}
 
 	#wish {
 		color: white;

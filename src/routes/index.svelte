@@ -10,8 +10,6 @@
 			},
 		};
 	}
-
-	export const prerender = true;
 </script>
 
 <script lang="ts">
@@ -59,17 +57,22 @@
 						src="https:{covers
 							.find((val) => val.id === game.cover)
 							.url.replace('t_thumb', 't_cover_big')}"
+						style="margin-top: 1em;"
 					/>
-					<h1>{game.name}</h1>
+					<h1 id="game-name">{game.name}</h1>
 				</div>
 			{/each}
 		</svelte:component>
-		<h3 id="s">Sign in to see more games and know more about them!</h3>
+		<h3 id="s">Sign in to see more games and know about them!</h3>
 		<button on:click={() => goto("/signin")}>Sign In</button>
 	</div>
 {/if}
 
 <style lang="scss">
+	#game-name {
+		color: palevioletred;
+	}
+
 	button {
 		background-color: teal;
 		color: white;
@@ -87,12 +90,18 @@
 
 	#s {
 		margin-top: 2em;
+		text-align: center;
 	}
 
 	#game {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		background-image: url("/home-bg.jpg");
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
+		justify-content: center;
 	}
 
 	#container {

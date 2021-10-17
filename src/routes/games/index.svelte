@@ -76,7 +76,7 @@
 	</div>
 {/if}
 <div id="main">
-	<div id="container">
+	<div id="container" style="height: {loading ? 'calc(100vh - 5em)' : 'fit-content'}">
 		<h1>Games</h1>
 
 		{#if loading}
@@ -263,7 +263,6 @@
 		color: white;
 		flex-direction: column;
 		align-items: center;
-		height: calc(100vh - 5em);
 		@media (min-width: $base) {
 			width: 100%;
 		}

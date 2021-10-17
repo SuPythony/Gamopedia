@@ -79,6 +79,7 @@
 	}
 
 	onMount(async () => {
+		console.log("here");
 		inWishlist = undefined;
 		if (window.location.pathname.split("/")[1] === "game") {
 			await waitUntil(() => $initializing === false);

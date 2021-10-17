@@ -49,7 +49,7 @@
 
 		{#if loading}
 			<Circle size="3" unit="em" color="teal" />
-		{:else}
+		{:else if gamesList.length > 0}
 			<div id="game-tiles">
 				{#each gamesList as game}
 					<GameTile {game} cover={coversList.find((val) => val.id === game.cover)} />
@@ -100,6 +100,8 @@
 					}}
 				/>
 			</div>
+		{:else}
+			<h2>No games match your search</h2>
 		{/if}
 	</div>
 	<div id="filters">

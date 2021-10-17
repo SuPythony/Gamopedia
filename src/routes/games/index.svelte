@@ -6,6 +6,7 @@
 	import GameTile from "$lib/components/GameTile.svelte";
 	import { Circle } from "svelte-loading-spinners";
 	import { keyClick } from "$lib/actions";
+	import { slide } from "svelte/transition";
 
 	let offset = 0;
 	let limit = 10;
@@ -13,11 +14,16 @@
 	let coversList = [];
 	let loading = true;
 	let searchTerm = "";
+	let after = 2000;
+	let before = 2023;
+	let showFilter = false;
 
 	async function getData() {
 		loading = true;
 		const res: Response = await fetch(
-			`/api/games-${offset}-${limit}-${searchTerm ? searchTerm : "noSearchTermHere"}`,
+			`/api/games-${offset}-${limit}-${
+				searchTerm ? searchTerm : "noSearchTermHere"
+			}-${after}-${before}`,
 		);
 		const data = await res.json();
 		gamesList = data.games;
@@ -43,14 +49,30 @@
 	<title>Games</title>
 </svelte:head>
 
-<div id="mobile-filter">
-	<div id="search">
-		<form novalidate on:submit|preventDefault={search}>
-			<input id="search-input" type="text" placeholder="Search" bind:value={searchTerm} />
-			<button id="search-button">Search</button>
-		</form>
-	</div>
+<div id="filter-button" role="button" tabindex="0" on:click={() => (showFilter = !showFilter)}>
+	<h1>Advanced Search</h1>
 </div>
+{#if showFilter}
+	<div id="mobile-filter" transition:slide>
+		<div id="search">
+			<form novalidate on:submit|preventDefault={search}>
+				<input id="search-input" type="text" placeholder="Search" bind:value={searchTerm} />
+				<button id="search-button">Search</button>
+			</form>
+		</div>
+		<div id="date">
+			<p>Released:</p>
+			<label>
+				After:
+				<input id="search-input" type="number" min="1958" max="2023" bind:value={after} />
+			</label>
+			<label>
+				Before:
+				<input id="search-input" type="number" min="1958" max="2023" bind:value={before} />
+			</label>
+		</div>
+	</div>
+{/if}
 <div id="main">
 	<div id="container">
 		<h1>Games</h1>
@@ -113,17 +135,64 @@
 		{/if}
 	</div>
 	<div id="filters">
+		<h1>Advanced Search</h1>
 		<div id="search">
 			<form novalidate on:submit|preventDefault={search}>
 				<input id="search-input" type="text" placeholder="Search" bind:value={searchTerm} />
 				<button id="search-button">Search</button>
 			</form>
 		</div>
+		<div id="date">
+			<p>Released:</p>
+			<label>
+				After:
+				<input id="search-input" type="number" min="1958" max="2023" bind:value={after} />
+			</label>
+			<label>
+				Before:
+				<input id="search-input" type="number" min="1958" max="2023" bind:value={before} />
+			</label>
+		</div>
 	</div>
 </div>
 
 <style lang="scss">
 	@import "../../lib/vars.scss";
+
+	#filter-button {
+		color: white;
+		display: flex;
+		align-items: center;
+		background-color: teal;
+		margin-top: 10px;
+		flex-direction: column;
+		h1 {
+			font-size: 1.5em;
+		}
+		@media (min-width: $base) {
+			display: flex;
+		}
+		@media (min-width: $md) {
+			display: none;
+		}
+	}
+
+	#date {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		p {
+			color: white;
+			margin-top: 15px;
+			margin-bottom: 0px;
+			font-weight: bold;
+		}
+	}
+
+	label {
+		color: white;
+	}
 
 	#search-button {
 		padding: 10px;
@@ -170,14 +239,15 @@
 		padding: 10px;
 		align-items: center;
 		flex-direction: column;
+		align-items: center;
+		h1 {
+			color: white;
+		}
 		@media (min-width: $base) {
 			display: flex;
 		}
 		@media (min-width: $md) {
 			display: none;
-		}
-		h1 {
-			color: white;
 		}
 	}
 

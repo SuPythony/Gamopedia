@@ -11,7 +11,9 @@ export async function get({ params }) {
 		headers: apiHeaders,
 		body: `fields summary,slug,cover,name,first_release_date,total_rating,total_rating_count; offset ${
 			params.offset
-		}; limit ${params.limit}; where cover!=null;${
+		}; limit ${params.limit}; where cover!=null & first_release_date>=${Math.round(
+			new Date(params.after, 0).getTime() / 1000,
+		)} & first_release_date<${Math.round(new Date(params.before, 0).getTime() / 1000)};${
 			params.search !== "noSearchTermHere" ? `search "${params.search}";` : ""
 		}`,
 	})

@@ -73,8 +73,13 @@
 	let auth;
 	let inWishlist = undefined;
 	let wishlist: string[] = [];
+	let canCheck = false;
+	$: if (canCheck && window.location.pathname.split("/")[1] !== "game") {
+		inWishlist = undefined;
+	}
 
 	onMount(async () => {
+		inWishlist = undefined;
 		if (window.location.pathname.split("/")[1] === "game") {
 			await waitUntil(() => $initializing === false);
 			await waitUntil(() => $signedIn !== undefined);
@@ -99,9 +104,8 @@
 					inWishlist = false;
 				}
 			}
-		} else {
-			inWishlist = undefined;
 		}
+		canCheck = true;
 	});
 
 	function removeAllClicks() {

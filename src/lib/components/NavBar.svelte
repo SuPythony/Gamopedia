@@ -74,6 +74,10 @@
 	let inWishlist = undefined;
 	let wishlist: string[] = [];
 
+	$: if (window.location.pathname.split("/")[1] !== "game") {
+		wishlist = undefined;
+	}
+
 	onMount(async () => {
 		if (window.location.pathname.split("/")[1] === "game") {
 			await waitUntil(() => $initializing === false);
@@ -99,6 +103,8 @@
 					inWishlist = false;
 				}
 			}
+		} else {
+			inWishlist = undefined;
 		}
 	});
 
@@ -171,7 +177,7 @@
 					</div>
 				{/each}
 			</div>
-			{#if inWishlist === false && window.location.pathname.split("/")[1] === "game"}
+			{#if inWishlist === false}
 				<div
 					id="wish"
 					tabindex="0"
@@ -194,7 +200,7 @@
 					<i class="far fa-bookmark fa-md" />
 					<h2>Add to Wishlist</h2>
 				</div>
-			{:else if inWishlist && window.location.pathname.split("/")[1] === "game"}
+			{:else if inWishlist}
 				<div
 					id="wish"
 					tabindex="0"

@@ -6,7 +6,6 @@
 	import { app, auth, signedIn, initializing } from "$lib/stores";
 	import NavBar from "$lib/components/NavBar.svelte";
 	import { SvelteToast } from "@zerodevx/svelte-toast";
-	import Footer from "$lib/components/Footer.svelte";
 
 	onMount(() => {
 		$initializing = true;
@@ -33,7 +32,6 @@
 <SvelteToast options={{ duration: 2000 }} />
 <NavBar />
 <slot />
-<Footer />
 
 <style>
 	:global(body) {

@@ -35,7 +35,7 @@
 					{
 						text: "Features",
 						submenus: false,
-						url: "#features",
+						url: "/#features",
 					},
 			  ]),
 		...($signedIn

@@ -76,7 +76,7 @@
 	</div>
 {/if}
 <div id="main">
-	<div id="container" style="height: {loading ? 'calc(100vh - 5em)' : 'fit-content'}">
+	<div id="container">
 		<h1>Games</h1>
 
 		{#if loading}

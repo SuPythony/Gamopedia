@@ -19,6 +19,7 @@
 	import Accordion from "$lib/components/Accordion.svelte";
 	import AccordionItem from "$lib/components/AccordionItem.svelte";
 	import { showingGame } from "$lib/stores";
+	import Footer from "$lib/components/Footer.svelte";
 
 	interface gameInterface {
 		id: number;
@@ -96,6 +97,7 @@
 			</Accordion>
 		</div>
 	</div>
+	<Footer />
 {/if}
 
 <style lang="scss">

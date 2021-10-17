@@ -39,6 +39,7 @@
 		"async-wait-until": "^2.0.7",
 		"encoding": "^0.1.13",
 		"fetch-with-proxy": "^3.0.1",
-		"firebase": "^9.1.3"
+		"firebase": "^9.1.3",
+		"stream": "^0.0.2"
 	}
 }

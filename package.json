@@ -38,6 +38,6 @@
 	"dependencies": {
 		"async-wait-until": "^2.0.7",
 		"fetch-with-proxy": "^3.0.1",
-		"firebase": "^9.1.2"
+		"firebase": "9.0.0"
 	}
 }

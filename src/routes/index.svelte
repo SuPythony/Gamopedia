@@ -101,6 +101,8 @@
 {/if}
 
 <style lang="scss">
+	@import "../lib/vars.scss";
+
 	.accordion-item {
 		text-align: center;
 	}
@@ -117,7 +119,12 @@
 		flex-direction: column;
 		align-items: center;
 		margin-bottom: 20px;
-		width: 50%;
+		@media (min-width: $base) {
+			width: 75%;
+		}
+		@media (min-width: $md) {
+			width: 50%;
+		}
 		h1 {
 			margin-top: 0em;
 			font-size: 3em;

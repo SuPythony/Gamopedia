@@ -16,6 +16,7 @@
 		position: relative;
 		bottom: 0px;
 		left: 0px;
+		font-size: 0.9em;
 		h2 {
 			margin: 0.7em;
 		}

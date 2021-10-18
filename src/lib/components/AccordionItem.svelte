@@ -59,6 +59,7 @@
 		justify-content: space-between;
 		align-items: center;
 		margin-bottom: 10px;
+		font-size: 0.9em;
 		h1 {
 			margin: 0px;
 		}

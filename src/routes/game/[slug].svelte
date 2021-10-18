@@ -13,9 +13,11 @@
 
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { showingGame } from "$lib/stores";
+	import { showingGame, signedIn } from "$lib/stores";
+	import { waitUntil } from "async-wait-until";
 
 	import { Circle, Jumper, Moon } from "svelte-loading-spinners";
+	import { goto } from "$app/navigation";
 
 	interface gameInterface {
 		id: number;
@@ -161,6 +163,10 @@
 	}
 
 	onMount(async () => {
+		await waitUntil(() => $signedIn !== undefined);
+		if (!$signedIn) {
+			goto("/signin");
+		}
 		showingGame.set(true);
 		const module = await import("svelte-carousel");
 		Carousel = module.default;

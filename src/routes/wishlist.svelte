@@ -65,7 +65,7 @@
 </div>
 
 <style lang="scss">
-	@import "../../lib/vars.scss";
+	@import "../lib/vars.scss";
 
 	#container {
 		display: flex;

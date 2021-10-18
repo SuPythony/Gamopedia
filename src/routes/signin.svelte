@@ -25,7 +25,9 @@
 
 	function sendLink() {
 		const actionCodeSettins: ActionCodeSettings = {
-			url: `https://${window.location.href.split("//")[1].split("/")[0]}/finishSignIn`,
+			url: `${window.location.href.includes("localhost") ? "http" : "https"}://${
+				window.location.href.split("//")[1].split("/")[0]
+			}/finishSignIn`,
 			handleCodeInApp: true,
 		};
 		const auth = getAuth();

@@ -159,7 +159,7 @@
 </div>
 
 <style lang="scss">
-	@import "../../lib/vars.scss";
+	@import "../lib/vars.scss";
 
 	#filter-button {
 		color: white;

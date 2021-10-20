@@ -23,4 +23,4 @@
 
 ## Features
 
-To view the features go [here](https://gamopedia.netlify.app/#features)
+The features are listed on the front page of the website.

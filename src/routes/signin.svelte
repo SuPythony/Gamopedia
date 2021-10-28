@@ -81,7 +81,7 @@
 			bind:this={emailField}
 			required
 			bind:isValid
-			hint="You'll receive a link on your email, which you can use to sign in. If you didn't receive your email, it's on its way and will arrive in 10-15 minutes."
+			hint="You'll receive a link on your email, which you can use to sign in."
 		/>
 		<button on:click={handleSubmit}>
 			{#if loading}

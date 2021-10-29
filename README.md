@@ -1,6 +1,6 @@
 # Gamopedia
 
-## An encyclopedia of video games
+An encyclopedia of video games
 
 ## [Website](https://gamopedia.netlify.app)
 

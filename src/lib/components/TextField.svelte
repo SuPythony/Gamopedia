@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { createEventDispatcher } from "svelte";
-
 	export let label: string;
 	export let type = "text";
 	export let required = false;
@@ -14,8 +12,7 @@
 	export let placeholder = "";
 	export let value = "";
 	export let hint = "";
-
-	const dispatch = createEventDispatcher();
+	export let disabled = false;
 
 	export let message = "";
 	export let isValid = false;
@@ -28,6 +25,9 @@
 		} else if (!validateEmail(value) && type === "email") {
 			isValid = false;
 			message = "Invalid email";
+		} else if (!validatePassword(value) && type === "password") {
+			isValid = false;
+			message = "Password should be at least 8 characters long";
 		} else {
 			isValid = true;
 			message = "";
@@ -44,6 +44,13 @@
 		return re.test(email);
 	}
 
+	function validatePassword(password: string) {
+		if (password.length >= 8) {
+			return true;
+		}
+		return false;
+	}
+
 	export function submit() {
 		validated = true;
 		if (required && value === "") {
@@ -55,6 +62,13 @@
 			if (!validateEmail(value)) {
 				isValid = false;
 				message = "Invalid email";
+				return;
+			}
+		}
+		if (type === "password") {
+			if (!validatePassword(value)) {
+				isValid = false;
+				message = "Password should be at least 8 characters long";
 				return;
 			}
 		}
@@ -76,6 +90,8 @@
 					: '#fc8181'
 				: borderColor}; background-color: {backgroundColor}"
 			bind:value
+			{disabled}
+			class:disabled
 		/>
 	{:else}
 		<input
@@ -89,6 +105,8 @@
 					: '#fc8181'
 				: borderColor}; background-color: {backgroundColor}"
 			bind:value
+			{disabled}
+			class:disabled
 		/>
 	{/if}
 	<p id="hint">{hint}</p>
@@ -116,6 +134,12 @@
 		color: var(--text-color);
 		&:focus {
 			border-color: #63b3ed;
+		}
+	}
+
+	.disabled {
+		&:hover {
+			cursor: not-allowed;
 		}
 	}
 

@@ -4,6 +4,10 @@ An encyclopedia of video games
 
 ## [Website](https://gamopedia.netlify.app)
 
+## Demo Video
+
+https://user-images.githubusercontent.com/67601246/139629735-d3279e2d-3b8f-4d01-a50e-207599085fdb.mp4
+
 ## Tech Stack
 
 - Svelte Kit and Typescript

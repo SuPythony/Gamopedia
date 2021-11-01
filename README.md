@@ -2,6 +2,8 @@
 
 An encyclopedia of video games
 
+Get to know different games, find the ones you love, add them to your wishlist and when the time's right - get them!
+
 ## [Website](https://gamopedia.netlify.app)
 
 ## Demo Video

@@ -59,7 +59,7 @@
 		...($signedIn !== undefined
 			? [
 					{
-						text: $signedIn ? "Sign Out" : "Sign In",
+						text: $signedIn ? "Sign Out" : "Sign In / Sign Up",
 						submenus: false,
 						url: $signedIn ? "/signout" : "/signin",
 					},

@@ -4,12 +4,6 @@ An encyclopedia of video games
 
 Get to know different games, find the ones you love, add them to your wishlist and when the time's right - get them!
 
-## [Website](https://gamopedia.netlify.app)
-
-## Demo Video
-
-https://user-images.githubusercontent.com/67601246/139629735-d3279e2d-3b8f-4d01-a50e-207599085fdb.mp4
-
 ## Tech Stack
 
 - Svelte Kit and Typescript

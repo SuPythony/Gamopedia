@@ -20,7 +20,3 @@ Get to know different games, find the ones you love, add them to your wishlist a
 - You can also add games to your wishlist.
 - On the games page you can search a game and filter them by release date.
 - You can view your wishlist and send feedback.
-
-## Features
-
-The features are listed on the front page of the website.

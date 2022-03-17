@@ -2,10 +2,10 @@
 	/**
 	 * @type {import('@sveltejs/kit').Load}
 	 */
-	export function load({ page }) {
+	export function load({ url, params }) {
 		return {
 			props: {
-				slug: page.params.slug,
+				slug: params.slug,
 			},
 		};
 	}
